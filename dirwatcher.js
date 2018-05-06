@@ -1,6 +1,9 @@
 import EventEmitter from 'events';
 import fs from 'fs';
 import path from 'path';
+import util from 'util';
+
+const readdir = util.promisify(fs.readdir);
 
 export default class DirWatcher extends EventEmitter {
   constructor() {
@@ -16,13 +19,11 @@ export default class DirWatcher extends EventEmitter {
 
   startWatching() {
     setInterval(() => {
-      fs.readdir(this.root, (err, files) => {
-        if (err) throw err;
-
-        files.forEach(file => {
-          process.nextTick(() => this.recordFile(path.join(this.root, file)));
-        });
-      });
+      readdir(this.root)
+        .then(files => {
+          files.forEach(file => this.recordFile(path.join(this.root, file)));
+        })
+        .catch(console.err);
 
       this.detectFileDelete();
     }, 500);
@@ -34,11 +35,11 @@ export default class DirWatcher extends EventEmitter {
     if (!this.directoryStructure[filePath]) {
       this.directoryStructure[filePath] = lastModification;
       // New file has been added
-      this.emit('changed', filePath);
+      this.emit('dirwatcher:changed', filePath);
     } else if (this.directoryStructure[filePath] !== lastModification) {
       this.directoryStructure[filePath] = lastModification;
       // The file has been changed
-      this.emit('changed', filePath);
+      this.emit('dirwatcher:changed', filePath);
     }
   }
 
@@ -48,7 +49,7 @@ export default class DirWatcher extends EventEmitter {
         if (err) {
           if (err.code === 'ENOENT') {
             // The file has been deleted
-            this.emit('deleted', file);
+            this.emit('dirwatcher:deleted', file);
             delete this.directoryStructure[file];
           }
         }

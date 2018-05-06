@@ -9,9 +9,9 @@ import Importer from './importer';
 const dirWatcher = new DirWatcher();
 const importer = new Importer();
 
-const delay = 3000;
+const delay = config.watcherDelay;
 
-dirWatcher.on('changed', path => {
+dirWatcher.on('dirwatcher:changed', path => {
   importer
     .import(path)
     .then(console.log)
