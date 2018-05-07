@@ -3,7 +3,8 @@ import fs from 'fs';
 import path from 'path';
 import util from 'util';
 
-const readdir = util.promisify(fs.readdir);
+const readdirAsync = util.promisify(fs.readdir);
+const readStatAsync = util.promisify(fs.stat);
 
 export default class DirWatcher extends EventEmitter {
   constructor() {
@@ -18,19 +19,20 @@ export default class DirWatcher extends EventEmitter {
   }
 
   startWatching() {
-    setInterval(() => {
-      readdir(this.root)
-        .then(files => {
-          files.forEach(file => this.recordFile(path.join(this.root, file)));
-        })
-        .catch(console.err);
+    setInterval(async () => {
+      try {
+        const files = await readdirAsync(this.root);
+        files.forEach(file => this.recordFile(path.join(this.root, file)));
+      } catch (err) {
+        console.err(err);
+      }
 
       this.detectFileDelete();
     }, 500);
   }
 
-  recordFile(filePath) {
-    const lastModification = fs.statSync(filePath).ctimeMs;
+  async recordFile(filePath) {
+    const { ctimeMs: lastModification } = await readStatAsync(filePath);
     
     if (!this.directoryStructure[filePath]) {
       this.directoryStructure[filePath] = lastModification;
