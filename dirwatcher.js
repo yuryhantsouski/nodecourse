@@ -5,6 +5,7 @@ import util from 'util';
 
 const readdirAsync = util.promisify(fs.readdir);
 const readStatAsync = util.promisify(fs.stat);
+const openFileAsync = util.promisify(fs.open);
 
 export default class DirWatcher extends EventEmitter {
   constructor() {
@@ -46,16 +47,16 @@ export default class DirWatcher extends EventEmitter {
   }
 
   detectFileDelete() {
-    Object.keys(this.directoryStructure).forEach(file => {
-      fs.open(file, 'r', (err, fd) => {
-        if (err) {
-          if (err.code === 'ENOENT') {
-            // The file has been deleted
-            this.emit('dirwatcher:deleted', file);
-            delete this.directoryStructure[file];
-          }
+    Object.keys(this.directoryStructure).forEach(async file => {
+      try {
+        await openFileAsync(file, 'r');
+      } catch (err) {
+        if (err.code === 'ENOENT') {
+          // The file has been deleted
+          this.emit('dirwatcher:deleted', file);
+          delete this.directoryStructure[file];
         }
-      });
+      }
     });
   }
 }
