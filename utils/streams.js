@@ -23,7 +23,7 @@ const outputFile = filePath => {
   fs.createReadStream(filePath).pipe(process.stdout);
 }
 
-const convertFromFile = async filePath => {
+const convertFromFile = filePath => {
   if (typeof filePath !== 'string') {
     return showTips('You must fill the --file option');
   }
@@ -47,7 +47,7 @@ const convertToFile = filePath => {
   return csvtojson().fromFile(filePath).pipe(fs.createWriteStream(`${path.parse(filePath).name}.json`));
 }
 
-const cssBundler = async folderPath => {
+const cssBundler = folderPath => {
   if (typeof folderPath !== 'string') {
     return showTips('You must fill the --path option');
   }
