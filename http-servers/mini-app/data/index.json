@@ -1,0 +1,99 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Supreme T-Shirt",
+      "brand": "Supreme",
+      "price": 99.99,
+      "options": [
+        {
+          "color": "blue"
+        },
+        {
+          "size": "XL"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Adidas T-Shirt",
+      "brand": "Adidas",
+      "price": 55.55,
+      "options": [
+        {
+          "color": "red"
+        },
+        {
+          "size": "XS"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Nike T-Shirt",
+      "brand": "Nike",
+      "price": 22.22,
+      "options": [
+        {
+          "color": "black"
+        },
+        {
+          "size": "M"
+        }
+      ]
+    },
+    {
+      "id": "3da7fbc0-6ee7-11e8-b09c-0bf1482727e9",
+      "name": "world",
+      "brand": "Nike",
+      "price": 22,
+      "options": [
+        {
+          "color": "blue"
+        },
+        {
+          "size": "xs"
+        }
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "productId": 2,
+      "text": "Wonderful"
+    },
+    {
+      "id": 2,
+      "productId": 2,
+      "text": "Not such a wonderful thing"
+    },
+    {
+      "id": 3,
+      "productId": 1,
+      "text": "Awesome t-shirt!"
+    },
+    {
+      "id": 4,
+      "productId": 3,
+      "text": "How does it work?"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Mike",
+      "age": 22
+    },
+    {
+      "id": 2,
+      "name": "Alex",
+      "age": 53
+    },
+    {
+      "id": 3,
+      "name": "Jack",
+      "age": 18
+    }
+  ]
+}
