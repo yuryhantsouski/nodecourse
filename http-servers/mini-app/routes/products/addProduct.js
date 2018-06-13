@@ -3,7 +3,7 @@ import { Products } from '../../models';
 const nameValidation = string => !string || string.length < 2 || string.length > 50;
 const products = new Products();
 
-export default (req, res) => {
+export default async (req, res, next) => {
   const { name, brand } = req.body;
   let { price, options } = req.body;
 
@@ -33,7 +33,10 @@ export default (req, res) => {
     return res.status(400).end('"options" must be an array with {"color": "...", "size": "..."} shape')
   }
 
-  products.create({ name, brand, price, options });
-
-  res.status(201).json({ message: 'product has been created' });
+  try {
+    const newProducts = await products.create({ name, brand, price, options });
+    return res.status(201).json(newProducts);
+  } catch(e) {
+    next(e);
+  }
 }

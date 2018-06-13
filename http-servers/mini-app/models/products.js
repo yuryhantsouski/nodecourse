@@ -15,7 +15,8 @@ export class Products {
       const products = [...data.products, { id: uuid(), name, brand, price, options }];
       const newData = { ...data, products };
 
-      writeFileAsync(path.join(__dirname, '../data/index.json'), JSON.stringify(newData));
+      await writeFileAsync(path.join(__dirname, '../data/index.json'), JSON.stringify(newData));
+      return newData.products;
     } catch (e) {
       console.err(e);
     }
