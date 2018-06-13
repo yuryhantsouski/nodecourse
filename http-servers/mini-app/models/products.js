@@ -1,4 +1,3 @@
-import data from '../data';
 import fs from 'fs';
 import path from 'path';
 import uuid from 'uuid/v1';
