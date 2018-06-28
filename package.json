@@ -4,8 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js --exec babel-node --presets env,stage-2",
-    "server": "nodemon ./http-servers/mini-app --exec babel-node --presets env,stage-2",
+    "start": "nodemon ./bin/www --exec babel-node --presets env,stage-2",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,11 +26,9 @@
   },
   "dependencies": {
     "body-parser": "^1.18.3",
-    "csvjson": "^5.0.0",
-    "csvtojson": "^2.0.0",
     "express": "^4.16.3",
-    "minimist": "^1.2.0",
-    "through2": "^2.0.3",
-    "uuid": "^3.2.1"
+    "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.38.0"
   }
 }
