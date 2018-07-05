@@ -1,0 +1,18 @@
+{
+  "development": {
+    "username": "node",
+    "password": 12345,
+    "database": "nodecourse",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "whatever",
+    "password": null,
+    "database": "nodecourse",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  }
+}

@@ -1,28 +1,13 @@
-import path from 'path';
+import express from 'express';
+import bodyParser from 'body-parser';
 
-import config from './config';
-import { Product, User } from './models';
-import { DirWatcher, Importer } from './modules';
+import routes from './server/routes';
 
-const dirWatcher = new DirWatcher();
-const importer = new Importer();
+const app = express();
 
-const delay = config.watcherDelay;
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-dirWatcher.on('dirwatcher:changed', async path => {
-  const json = await importer.import(path);
-  console.log(`Async ${path} has been changed`);
-  console.log(json);
-});
+app.use('/api', routes);
 
-dirWatcher.on('dirwatcher:changed', path => {
-  const json = importer.importSync(path);
-  console.log(`Sync ${path} has been changed`);
-  console.log(json);
-});
-
-dirWatcher.on('dirwatcher:deleted', path => {
-  console.log(`${path} has been deleted`);
-});
-
-dirWatcher.watch(path.join(__dirname, '/data'), delay);
+export default app;
