@@ -1,26 +1,29 @@
-'use strict';
-module.exports = (sequelize, DataTypes) => {
-  const Product = sequelize.define('Product', {
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    brand: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    price: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-  });
+import mongoose, { Schema } from 'mongoose';
 
-  Product.associate = function(models) {
-    Product.hasMany(models.Review, {
-      foreignKey: 'productId',
-      as: 'reviews'
-    });
-  };
+import timestamps from 'mongoose-timestamp';
 
-  return Product;
-};
+export const ProductSchema = new Schema({
+  name: {
+    type: String,
+    trim: true,
+    required: true
+  },
+  brand: {
+    type: String,
+    trim: true,
+    required: true
+  },
+  price: {
+    type: Number,
+    required: true
+  },
+  options: {
+    type: Array
+  }
+},
+{ collection: 'products' },
+);
+
+ProductSchema.plugin(timestamps);
+
+module.exports = exports = mongoose.model('Product', ProductSchema);
