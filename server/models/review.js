@@ -1,18 +1,23 @@
-'use strict';
-module.exports = (sequelize, DataTypes) => {
-  const Review = sequelize.define('Review', {
-    text: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-  });
+import mongoose, { Schema } from 'mongoose';
 
-  Review.associate = (models) => {
-    Review.belongsTo(models.Product, {
-      foreignKey: 'productId',
-      onDelete: 'CASCADE'
-    })
-  };
+import timestamps from 'mongoose-timestamp';
 
-  return Review;
-};
+const ObjectId = mongoose.Schema.Types.ObjectId;
+
+export const ReviewSchema = new Schema({
+  text: {
+    type: String,
+    trim: true,
+    required: true
+  },
+  productId: {
+    type: ObjectId,
+    required: true
+  }
+},
+{ collection: 'reviews' },
+);
+
+ReviewSchema.plugin(timestamps);
+
+module.exports = exports = mongoose.model('Review', ReviewSchema);

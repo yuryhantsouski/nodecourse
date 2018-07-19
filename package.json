@@ -22,13 +22,16 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.26.0",
-    "nodemon": "^1.17.3"
+    "nodemon": "^1.17.5"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.3.0",
     "minimist": "^1.2.0",
+    "mongoose": "^5.2.1",
+    "mongoose-create-or-update": "^1.0.3",
+    "mongoose-timestamp": "^0.6.0",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "passport-google-oauth": "^1.0.0",
@@ -36,6 +39,7 @@
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.4",
     "through2": "^2.0.3",
-    "uuid": "^3.2.1"
+    "uuid": "^3.2.1",
+    "validator": "^10.4.0"
   }
 }

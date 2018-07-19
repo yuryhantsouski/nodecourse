@@ -1,11 +1,9 @@
 import express from 'express';
-
-import { reviewsController } from '../controllers';
+import Review from '../controllers/review';
 
 const reviews = express.Router({ mergeParams: true });
 
-reviews.get('/', reviewsController.list);
-
-reviews.post('/', reviewsController.create);
+reviews.get('/', Review.list);
+reviews.post('/', Review.post);
 
 export default reviews;
